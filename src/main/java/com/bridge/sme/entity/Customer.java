@@ -1,10 +1,11 @@
-package com.bridge.sme.Entity;
+package com.bridge.sme.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,14 +14,14 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "PROSPECT")
-public class Prospect implements Serializable {
-    private static final long serialVersionID = 1L;
+@Table(name = "CUSTOMER", schema="SME")
+public class Customer implements Serializable {
+    private static final long SERIALVERSIONUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name= "PROSPECT_ID")
-    private Long prospectId;
+    @Column(name= "CUSTOMER_ID")
+    private Integer customerId;
 
     @Column(name = "FIRST_NAME")
     private String firstName;
@@ -28,31 +29,29 @@ public class Prospect implements Serializable {
     @Column(name = "LAST_NAME")
     private String lastName;
 
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", unique = true)
     private String email;
 
     @Column(name = "PHONE")
     private String phone;
 
-    @Column(name = "TECH_STACK_NAME")
-    private String techStackName;
+    @Column(name = "TECH_STACK_ID")
+    private String primaryTechStackId;
 
     @Column(name = "TIME_ZONE")
     private String timeZone;
 
-    @Column(name = "DEMO_DATE")
-    private Date demoDate;
-
-    @Column(name = "EXP_START_DATE")
-    private Date expStartDate;
-
     @Column(name = "PREFERRED_CONTACT_METHOD")
     private String preferredContactMethod;
-
-    @Column(name = "REQUIREMENT_DETAILS")
-    private String requirementDetails;
 
     @CreationTimestamp
     @Column(name = "CREATE_DATE")
     private Date createDate;
+
+    @Column(name = "CREATED_BY")
+    private String createdBy;
+
+    @UpdateTimestamp
+    @Column(name = "LAST_UPDATE_TS")
+    private Date lastUpdateTs;
 }

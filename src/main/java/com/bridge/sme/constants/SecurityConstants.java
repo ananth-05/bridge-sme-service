@@ -1,6 +1,10 @@
 package com.bridge.sme.constants;
 
-public interface SecurityConstants {
+public final class SecurityConstants {
+
+    private SecurityConstants() {
+
+    }
 
     public static final String WELCOME_URL= "/security-check/welcome";
     public static final String PROSPECT_REG_URL= "/registration/prospectReg";
