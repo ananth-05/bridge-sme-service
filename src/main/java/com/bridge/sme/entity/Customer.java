@@ -19,7 +19,7 @@ public class Customer implements Serializable {
     private static final long SERIALVERSIONUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "CUSTOMER_ID")
     private Integer customerId;
 
@@ -36,7 +36,7 @@ public class Customer implements Serializable {
     private String phone;
 
     @Column(name = "TECH_STACK_ID")
-    private String primaryTechStackId;
+    private String techStackId;
 
     @Column(name = "TIME_ZONE")
     private String timeZone;

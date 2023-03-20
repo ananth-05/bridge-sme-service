@@ -8,9 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,6 +20,7 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name= "USER_ID")
     private Integer id;
 
     @NotBlank
@@ -38,11 +36,9 @@ public class User {
     @Size(max = 120)
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    @OneToOne
+    @JoinColumn(name="ROLE_ID")
+    private Role role;
 
     public User(String username, String email, String password) {
         this.username = username;

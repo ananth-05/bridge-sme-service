@@ -18,7 +18,7 @@ public class Prospect implements Serializable {
     private static final long SERIALVERSIONUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "PROSPECT_ID")
     private Integer prospectId;
 
@@ -28,7 +28,7 @@ public class Prospect implements Serializable {
     @Column(name = "LAST_NAME")
     private String lastName;
 
-    @Column(name = "EMAIL", unique = true)
+    @Column(name = "EMAIL")
     private String email;
 
     @Column(name = "PHONE")

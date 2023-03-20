@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,8 +19,10 @@ public class SignupRequest {
     @Size(max = 50)
     @Email
     private String email;
-    
-    private Set<String> role;
+
+    @NotBlank
+    @Size(max = 20)
+    private String role;
     
     @NotBlank
     @Size(min = 6, max = 40)

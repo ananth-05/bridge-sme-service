@@ -1,17 +1,22 @@
 package com.bridge.sme.service;
 
 import com.bridge.sme.dto.CustomerRegDTO;
+import com.bridge.sme.dto.Email;
+import com.bridge.sme.dto.ProspectRegDTO;
 import com.bridge.sme.dto.ResourceRegDTO;
 import com.bridge.sme.entity.Customer;
 import com.bridge.sme.entity.Prospect;
 import com.bridge.sme.entity.Resource;
+import com.bridge.sme.entity.User;
 import com.bridge.sme.repository.CustomerRepository;
 import com.bridge.sme.repository.ProspectRepository;
-import com.bridge.sme.dto.ProspectRegDTO;
 import com.bridge.sme.repository.ResourceRepository;
+import com.bridge.sme.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class RegistrationService {
@@ -25,23 +30,20 @@ public class RegistrationService {
     @Autowired
     ResourceRepository resourceRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     public Prospect saveProspectCustomer(ProspectRegDTO prospectReg) {
         ModelMapper modelMapper = new ModelMapper();
-        Prospect prospect = prospectRepository.findProspectCustomerByEmail(prospectReg.getEmail());
-        if (prospect != null) {
-            prospect.setFirstName(prospectReg.getFirstName());
-            prospect.setLastName(prospectReg.getLastName());
-            prospect.setPhone(prospectReg.getPhone());
-            prospect.setTechStackName(prospectReg.getTechStackName());
-            prospect.setTimeZone(prospectReg.getTimeZone());
-            prospect.setDemoDate(prospectReg.getDemoDate());
-            prospect.setExpStartDate(prospectReg.getExpStartDate());
-            prospect.setPreferredContactMethod(prospectReg.getPreferredContactMethod());
-            prospect.setRequirementDetails(prospectReg.getRequirementDetails());
-        } else {
-            prospect = modelMapper.map(prospectReg, Prospect.class);
-        }
-        return prospectRepository.save(prospect);
+        Prospect prospect = modelMapper.map(prospectReg, Prospect.class);
+        prospect = prospectRepository.save(prospect);
+        emailProcess(prospectReg);
+        return prospect;
+    }
+
+    private void emailProcess(ProspectRegDTO prospectReg) {
+        List<User> userList = userRepository.findAll();
+        Email email = new Email();
     }
 
     public Customer saveCustomer(CustomerRegDTO customerReg) {

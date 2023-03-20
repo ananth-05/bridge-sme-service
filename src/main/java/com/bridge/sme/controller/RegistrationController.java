@@ -22,19 +22,19 @@ public class RegistrationController {
     @PostMapping("/prospectReg")
     public ResponseEntity<String> prospectRegistration(@RequestBody ProspectRegDTO prospectReg) {
         registrationService.saveProspectCustomer(prospectReg);
-        return new ResponseEntity<>("Prospect Customer Saved Successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Prospect Customer Saved Successfully", HttpStatus.CREATED);
     }
 
     @PostMapping("/customerReg")
     public ResponseEntity<String> customerRegistration(@RequestBody CustomerRegDTO customerReg) {
         registrationService.saveCustomer(customerReg);
-        return new ResponseEntity<>("Customer Saved Successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Customer Saved Successfully", HttpStatus.CREATED);
     }
 
     @PostMapping("/resourceReg")
     public ResponseEntity<String> resourceRegistration(@RequestBody ResourceRegDTO resourceReg) {
         registrationService.saveResource(resourceReg);
-        return new ResponseEntity<>("Resource Saved Successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Resource Saved Successfully", HttpStatus.CREATED);
     }
 
 }
