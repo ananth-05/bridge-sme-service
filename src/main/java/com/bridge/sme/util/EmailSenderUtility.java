@@ -22,24 +22,19 @@ public class EmailSenderUtility {
     private final SpringTemplateEngine templateEngine;
 
     public void sendHtmlMessage(Email email) {
-//        Email email= new Email();
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = null;
         try {
             helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
             Context context = new Context();
-//        HashMap<String, Object> prop = new HashMap<>();
-//        prop.put("name","ananth");
-//        prop.put("email","ananth.05may@gmail.com");
-//        email.setProperties(prop);
             context.setVariables(email.getProperties());
             helper.setFrom(email.getFrom());
             helper.setTo(email.getTo());
             helper.setSubject(email.getSubject());
             String html = templateEngine.process(email.getTemplate(), context);
             helper.setText(html, true);
-            log.info("Sending email...");
             emailSender.send(message);
+            log.info("Email sent...");
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
